@@ -1,13 +1,10 @@
 package com.pluralsight;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.ArrayList;
 
 public class BookDAO {
@@ -90,4 +87,16 @@ public class BookDAO {
 
         return false;
     }
+    
+   public void deleteBook(int id){
+	   String sql = "DELETE FROM book WHERE id = ?";
+	   try {
+		   PreparedStatement stmt = jdbcConnection.prepareStatement(sql);
+		   stmt.setInt(1, id);
+		   stmt.executeUpdate();
+		   stmt.close();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+   }
 }
